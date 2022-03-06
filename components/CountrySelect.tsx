@@ -30,7 +30,10 @@ const CountrySelect = ({ data }: { data: Icountry[] }) => {
 
     return (
 
-        <Box >
+        <Box sx={{
+            width : "100%",
+            marginBottom : "150px"
+        }} >
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Country</InputLabel>
                 <Select
