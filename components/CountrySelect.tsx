@@ -5,27 +5,32 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { SelectChangeEvent } from "@mui/material";
+import { useAppSelector, useAppDispatch } from '../redux/hooks'
+import {updateTarget} from "../redux/targetSlice"
 
 type Icountry = {
     "Country": string,
     "Slug": string,
     "ISO2": string,
-  
-  }
-  
 
-const CountrySelect = ({ data }: {data : Icountry[]}) => {
+}
 
-    const [country, setCountry] = React.useState('turkey');
 
-    const handleChange =  (event :SelectChangeEvent<unknown>) => {
-        setCountry(event.target.value as string );
+const CountrySelect = ({ data }: { data: Icountry[] }) => {
+
+    const country = useAppSelector((state) => state.target.value)
+
+    const dispatch = useAppDispatch()
+
+
+    const handleChange = (event: SelectChangeEvent<unknown>) => {
+        dispatch(updateTarget((event.target.value as string)));
     };
 
 
     return (
 
-        <Box sx={{ minWidth: 120 }}>
+        <Box >
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Country</InputLabel>
                 <Select
@@ -37,9 +42,9 @@ const CountrySelect = ({ data }: {data : Icountry[]}) => {
                 >
 
                     {
-                        data.map(data => ( <MenuItem value={data.Slug}>{data.Country}</MenuItem>))
+                        data.map((data,index) => (<MenuItem key={index} value={data.Slug}>{data.Country}</MenuItem>))
                     }
-                   
+
 
                 </Select>
             </FormControl>
